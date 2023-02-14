@@ -1,0 +1,17 @@
+{
+  "platforms": [
+    "ios",
+    "android",
+    "web"
+  ],
+  "ios": {
+    "modules": [
+      "ExpoAlternateAppIconsModule"
+    ]
+  },
+  "android": {
+    "modules": [
+      "expo.modules.alternateappicons.ExpoAlternateAppIconsModule"
+    ]
+  }
+}

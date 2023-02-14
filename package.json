@@ -1,0 +1,49 @@
+{
+  "name": "expo-alternate-app-icons",
+  "version": "0.1.0",
+  "description": "Enables to usage of alternate app icons in Android & iOS",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build:module": "expo-module build",
+    "clean:module": "expo-module clean",
+    "lint:module": "expo-module lint",
+    "test:module": "expo-module test",
+    "prepare:module": "expo-module prepare",
+    "prepublishOnly:module": "expo-module prepublishOnly",
+    "expo-module": "expo-module",
+    "open:ios": "open -a \"Xcode\" example/ios",
+    "open:android": "open -a \"Android Studio\" example/android",
+    "build:plugin": "tsc --build build-plugin/"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "expo-alternate-app-icons",
+    "ExpoAlternateAppIcons"
+  ],
+  "repository": "https://github.com/johnny-bytes/expo-alternate-app-icons",
+  "bugs": {
+    "url": "https://github.com/johnny-bytes/expo-alternate-app-icons/issues"
+  },
+  "author": "Thorsten Kehren <thorsten.wesseler@johnnybytes.com> (https://github.com/johnny-bytes)",
+  "license": "MIT",
+  "homepage": "https://github.com/johnny-bytes/expo-alternate-app-icons#readme",
+  "dependencies": {
+    "sharp": "^0.31.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/react": "^18.0.25",
+    "@types/react-native": "^0.70.6",
+    "@types/sharp": "^0.31.1",
+    "expo-module-scripts": "^3.0.4",
+    "expo-modules-core": "^1.1.0",
+    "fs-extra": "^11.1.0"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}
