@@ -21,11 +21,7 @@ const withAlternateIconsIos: ConfigPlugin<AlternateAppIcon[]> = (
     "ios",
     async (config) => {
       for (const alternateIcon of alternateIcons) {
-        await createIOSAppIcon(
-          config.modRequest.projectRoot,
-          alternateIcon.name,
-          alternateIcon.icon
-        );
+        await createIOSAppIcon(config.modRequest.projectRoot, alternateIcon);
       }
 
       return config;
@@ -48,12 +44,11 @@ const withAlternateIconsIos: ConfigPlugin<AlternateAppIcon[]> = (
 
 export const createIOSAppIcon = async (
   projectRoot: string,
-  iconName: string,
-  iconPath: string
+  alternateAppIcon: AlternateAppIcon
 ) => {
   const iosNamedProjectRoot = getIosNamedProjectPath(projectRoot);
 
-  const imageSetPath = `Images.xcassets/${iconName}.appiconset`;
+  const imageSetPath = `Images.xcassets/${alternateAppIcon.name}.appiconset`;
   await fs.ensureDir(join(iosNamedProjectRoot, imageSetPath));
 
   const imagesJson: ContentsJson["images"] = [];
@@ -62,16 +57,16 @@ export const createIOSAppIcon = async (
   for (const platform of ICON_CONTENTS) {
     for (const { size, scales } of platform.sizes) {
       for (const scale of scales) {
-        const filename = getAppleIconName(iconName, size, scale);
+        const filename = getAppleIconName(alternateAppIcon.name, size, scale);
 
         if (!(filename in generatedIcons)) {
           const iconSizePx = size * scale;
 
           await createResizedImage(
-            iconPath,
+            alternateAppIcon.icon,
             iconSizePx,
             false,
-            "#ffffff",
+            alternateAppIcon.backgroundColor,
             join(iosNamedProjectRoot, imageSetPath, filename)
           );
         }

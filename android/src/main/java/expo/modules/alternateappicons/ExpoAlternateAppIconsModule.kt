@@ -34,17 +34,19 @@ class ExpoAlternateAppIconsModule : Module() {
               .setTitle("Icon will change")
               .setMessage("Are you sure you want to delete this entry?") // Specifying a listener allows you to take an action before dismissing the dialog.
               .setIcon(drawable)
-              .setNeutralButton("OK", DialogInterface.OnClickListener { _, _ ->
+              .setNeutralButton("OK") { _, _ ->
                 try {
-                  enableAlternateAppIcon(context, alternateIconName ?: "ic_launcher")
+                  enableAlternateAppIcon(context, alternateIconName)
                   disableAlternateAppIcon(context, currentIconName)
 
-                  promise.resolve(null)
+                  appContext.activityProvider?.currentActivity?.finish()
                 } catch (error: Throwable) {
                   promise.reject(CodedException(error))
                 }
-              })
+              }
               .show()
+
+
           }
         } catch (error: Throwable) {
           promise.reject(CodedException(error))
@@ -61,13 +63,13 @@ class ExpoAlternateAppIconsModule : Module() {
     }
   }
 
-  private fun enableAlternateAppIcon(context: Context, alternateAppIconName: String) {
+  private fun enableAlternateAppIcon(context: Context, alternateAppIconName: String?) {
     val componentName = getComponentFromIconName(context, alternateAppIconName)
     context.packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP)
     setCurrentAlternateAppIconName(context, alternateAppIconName)
   }
 
-  private fun disableAlternateAppIcon(context: Context, alternateAppIconName: String) {
+  private fun disableAlternateAppIcon(context: Context, alternateAppIconName: String?) {
     val componentName = getComponentFromIconName(context, alternateAppIconName)
     context.packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP)
 
@@ -87,16 +89,20 @@ class ExpoAlternateAppIconsModule : Module() {
     }
   }
 
-  private fun getCurrentAlternateAppIconName(context: Context): String {
-   return getPreferences(context).getString("currentIcon", null) ?: "ic_launcher"
+  private fun getCurrentAlternateAppIconName(context: Context): String? {
+   return getPreferences(context).getString("currentIcon", null)
   }
 
   private fun getPreferences(context: Context): SharedPreferences {
     return context.getSharedPreferences("expo.alternate-app-icons", MODE_PRIVATE)
   }
 
-  private fun getComponentFromIconName(context: Context, iconName: String): ComponentName {
-    val activityName: String = context.packageName + ".MainActivity_" + iconName
+  private fun getComponentFromIconName(context: Context, iconName: String?): ComponentName {
+    var activityName = context.packageName + ".MainActivity"
+    if(iconName != null) {
+      activityName += "_$iconName"
+    }
+
     return ComponentName(context.packageName, activityName)
   }
 }

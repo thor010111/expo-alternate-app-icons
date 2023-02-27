@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function App() {
-  const [currentIconName, setCurrentIconName] = useState("default");
+  const [currentIconName, setCurrentIconName] = useState<string | null>(null);
 
   useEffect(() => {
     ExpoAlternateAppIcons.getCurrentAlternateAppIconName().then((iconName) =>
-      setCurrentIconName(iconName ?? "default")
+      setCurrentIconName(iconName)
     );
   }, []);
 
@@ -16,12 +16,12 @@ export default function App() {
 
     const currentIconName =
       await ExpoAlternateAppIcons.getCurrentAlternateAppIconName();
-    setCurrentIconName(currentIconName ?? "default");
+    setCurrentIconName(currentIconName);
   };
 
   return (
     <View style={styles.container}>
-      <Text>{currentIconName}</Text>
+      <Text>{currentIconName ?? "default"}</Text>
 
       <TouchableOpacity onPress={() => switchIcon("red")}>
         <Text>Red icon</Text>

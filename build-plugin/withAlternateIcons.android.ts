@@ -25,20 +25,14 @@ const withAlternateIconsAndroid: ConfigPlugin<AlternateAppIcon[]> = (
     );
 
     const mainApplicaitonEntry = mainApplication as any;
-
-    // remove default launcher icon
     delete mainApplicaitonEntry["activity"][0]["intent-filter"][0]["category"];
 
     // add default launcher icon as activity-aliases
     mainApplicaitonEntry["activity-alias"] = [
-      ...[
-        { name: DEFAULT_APP_ICON_NAME } as AlternateAppIcon,
-        ...alternateIcons,
-      ].map((ai) => ({
+      ...alternateIcons.map((ai) => ({
         $: {
           "android:name": `.MainActivity_${ai.name}`,
-          "android:enabled":
-            ai.name === DEFAULT_APP_ICON_NAME ? "true" : "false",
+          "android:enabled": "false",
           "android:icon": `@mipmap/${ai.name}`,
           "android:roundIcon": `@mipmap/${ai.name}_round`,
           "android:targetActivity": ".MainActivity",
@@ -49,6 +43,7 @@ const withAlternateIconsAndroid: ConfigPlugin<AlternateAppIcon[]> = (
             action: [{ $: { "android:name": "android.intent.action.MAIN" } }],
             category: [
               { $: { "android:name": "android.intent.category.LAUNCHER" } },
+              { $: { "android:name": "android.intent.category.DEFAULT" } },
             ],
           },
         ],

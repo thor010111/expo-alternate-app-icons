@@ -37,15 +37,19 @@
         [
           {
             "name": "red",
-            "icon": "./assets/icon_red.png"
+            "icon": "./assets/icon_red.png",
+            "backgroundColor": "#ff0000",
+            "paddingRound": 32
           },
           {
             "name": "green",
-            "icon": "./assets/icon_green.png"
+            "icon": "./assets/icon_green.png",
+            "backgroundColor": "#00ff00"
           },
           {
             "name": "blue",
-            "icon": "./assets/icon_blue.png"
+            "icon": "./assets/icon_blue.png",
+            "backgroundColor": "#0000ff"
           }
         ]
       ]
