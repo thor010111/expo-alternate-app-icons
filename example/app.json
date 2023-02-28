@@ -38,8 +38,7 @@
           {
             "name": "red",
             "icon": "./assets/icon_red.png",
-            "backgroundColor": "#ff0000",
-            "paddingRound": 32
+            "backgroundColor": "#ff0000"
           },
           {
             "name": "green",

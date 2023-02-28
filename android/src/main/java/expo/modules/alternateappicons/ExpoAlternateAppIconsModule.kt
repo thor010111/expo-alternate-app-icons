@@ -24,29 +24,11 @@ class ExpoAlternateAppIconsModule : Module() {
           val context = requireNotNull(appContext.reactContext)
           val currentIconName = getCurrentAlternateAppIconName(context)
 
-          val drawableId = context.resources
-              .getIdentifier(alternateIconName ?: "ic_launcher", "mipmap", context.packageName)
+          if(alternateIconName != currentIconName) {
+            enableAlternateAppIcon(context, alternateIconName)
+            disableAlternateAppIcon(context, currentIconName)
 
-          val drawable = ResourcesCompat.getDrawable(context.resources, drawableId, null)
-
-          appContext.activityProvider?.currentActivity?.runOnUiThread {
-            AlertDialog.Builder(appContext.activityProvider?.currentActivity)
-              .setTitle("Icon will change")
-              .setMessage("Are you sure you want to delete this entry?") // Specifying a listener allows you to take an action before dismissing the dialog.
-              .setIcon(drawable)
-              .setNeutralButton("OK") { _, _ ->
-                try {
-                  enableAlternateAppIcon(context, alternateIconName)
-                  disableAlternateAppIcon(context, currentIconName)
-
-                  appContext.activityProvider?.currentActivity?.finish()
-                } catch (error: Throwable) {
-                  promise.reject(CodedException(error))
-                }
-              }
-              .show()
-
-
+            appContext.activityProvider?.currentActivity?.finish()
           }
         } catch (error: Throwable) {
           promise.reject(CodedException(error))
@@ -85,7 +67,7 @@ class ExpoAlternateAppIconsModule : Module() {
     if(iconName != null) {
       editor.putString("currentIcon", iconName).apply()
     } else {
-      editor.remove("currentIcon")
+      editor.remove("currentIcon").apply()
     }
   }
 
@@ -101,6 +83,8 @@ class ExpoAlternateAppIconsModule : Module() {
     var activityName = context.packageName + ".MainActivity"
     if(iconName != null) {
       activityName += "_$iconName"
+    } else {
+      activityName += "_ic_launcher"
     }
 
     return ComponentName(context.packageName, activityName)

@@ -12,7 +12,9 @@ import sharp from "sharp";
 import { AlternateAppIcon } from "./alternateAppIcon";
 import { createResizedImage } from "./create-resized-image";
 
-const DEFAULT_APP_ICON_NAME = "ic_launcher";
+const DEFAULT_APP_ICON = {
+  name: "ic_launcher",
+};
 const REQUIRED_APP_ICON_SIZE = 1024;
 
 const withAlternateIconsAndroid: ConfigPlugin<AlternateAppIcon[]> = (
@@ -29,10 +31,10 @@ const withAlternateIconsAndroid: ConfigPlugin<AlternateAppIcon[]> = (
 
     // add default launcher icon as activity-aliases
     mainApplicaitonEntry["activity-alias"] = [
-      ...alternateIcons.map((ai) => ({
+      ...[DEFAULT_APP_ICON, ...alternateIcons].map((ai) => ({
         $: {
           "android:name": `.MainActivity_${ai.name}`,
-          "android:enabled": "false",
+          "android:enabled": ai === DEFAULT_APP_ICON ? "true" : "false",
           "android:icon": `@mipmap/${ai.name}`,
           "android:roundIcon": `@mipmap/${ai.name}_round`,
           "android:targetActivity": ".MainActivity",
