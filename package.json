@@ -9,7 +9,7 @@
     "clean:module": "expo-module clean",
     "lint:module": "expo-module lint",
     "test:module": "expo-module test",
-    "prepare:module": "expo-module prepare",
+    "prepare": "expo-module prepare && tsc --build build-plugin/",
     "prepublishOnly:module": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "open:ios": "open -a \"Xcode\" example/ios",
