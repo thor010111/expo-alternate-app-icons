@@ -1,10 +1,7 @@
-import { IOSConfig, withDangerousMod } from "@expo/config-plugins";
-import {
-  ContentsJson,
-  writeContentsJsonAsync,
-} from "@expo/prebuild-config/build/plugins/icons/AssetContents";
-import { ICON_CONTENTS } from "@expo/prebuild-config/build/plugins/icons/withIosIcons";
-import { ConfigPlugin, withXcodeProject } from "expo/config-plugins";
+import { IOSConfig, withDangerousMod, ConfigPlugin, withXcodeProject } from "@expo/config-plugins";
+
+import { ContentsJson, writeContentsJsonAsync } from '@expo/prebuild-config/build/plugins/icons/AssetContents'
+
 import * as fs from "fs-extra";
 import { join } from "path";
 
@@ -54,32 +51,27 @@ export const createIOSAppIcon = async (
   const imagesJson: ContentsJson["images"] = [];
   const generatedIcons: Record<string, boolean> = {};
 
-  for (const platform of ICON_CONTENTS) {
-    for (const { size, scales } of platform.sizes) {
-      for (const scale of scales) {
-        const filename = getAppleIconName(alternateAppIcon.name, size, scale);
+  const size = 1024;
+  const scale = 1
+  const filename = getAppleIconName(alternateAppIcon.name, size, 1);
 
-        if (!(filename in generatedIcons)) {
-          const iconSizePx = size * scale;
+  if (!(filename in generatedIcons)) {
+    const iconSizePx = size * scale;
 
-          await createResizedImage(
-            alternateAppIcon.icon,
-            iconSizePx,
-            false,
-            alternateAppIcon.backgroundColor,
-            join(iosNamedProjectRoot, imageSetPath, filename)
-          );
-        }
-
-        imagesJson.push({
-          idiom: platform.idiom,
-          size: `${size}x${size}`,
-          scale: `${scale}x`,
-          filename,
-        });
-      }
-    }
+    await createResizedImage(
+      alternateAppIcon.icon,
+      iconSizePx,
+      false,
+      alternateAppIcon.backgroundColor,
+      join(iosNamedProjectRoot, imageSetPath, filename)
+    );
   }
+
+  imagesJson.push({
+    idiom: 'universal',
+    filename,    
+     size: `${size}x${size}`,
+  });
 
   await writeContentsJsonAsync(join(iosNamedProjectRoot, imageSetPath), {
     images: imagesJson,

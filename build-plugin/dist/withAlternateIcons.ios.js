@@ -26,8 +26,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createIOSAppIcon = void 0;
 const config_plugins_1 = require("@expo/config-plugins");
 const AssetContents_1 = require("@expo/prebuild-config/build/plugins/icons/AssetContents");
-const withIosIcons_1 = require("@expo/prebuild-config/build/plugins/icons/withIosIcons");
-const config_plugins_2 = require("expo/config-plugins");
 const fs = __importStar(require("fs-extra"));
 const path_1 = require("path");
 const create_resized_image_1 = require("./create-resized-image");
@@ -42,7 +40,7 @@ const withAlternateIconsIos = (config, alternateIcons) => {
             return config;
         },
     ]);
-    iosConfig = (0, config_plugins_2.withXcodeProject)(iosConfig, (cfg) => {
+    iosConfig = (0, config_plugins_1.withXcodeProject)(iosConfig, (cfg) => {
         const xcodeProject = cfg.modResults;
         xcodeProject.addBuildProperty("ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES", `"${alternateIcons.map((di) => di.name).join(" ")}"`);
         return cfg;
@@ -55,23 +53,18 @@ const createIOSAppIcon = async (projectRoot, alternateAppIcon) => {
     await fs.ensureDir((0, path_1.join)(iosNamedProjectRoot, imageSetPath));
     const imagesJson = [];
     const generatedIcons = {};
-    for (const platform of withIosIcons_1.ICON_CONTENTS) {
-        for (const { size, scales } of platform.sizes) {
-            for (const scale of scales) {
-                const filename = getAppleIconName(alternateAppIcon.name, size, scale);
-                if (!(filename in generatedIcons)) {
-                    const iconSizePx = size * scale;
-                    await (0, create_resized_image_1.createResizedImage)(alternateAppIcon.icon, iconSizePx, false, alternateAppIcon.backgroundColor, (0, path_1.join)(iosNamedProjectRoot, imageSetPath, filename));
-                }
-                imagesJson.push({
-                    idiom: platform.idiom,
-                    size: `${size}x${size}`,
-                    scale: `${scale}x`,
-                    filename,
-                });
-            }
-        }
+    const size = 1024;
+    const scale = 1;
+    const filename = getAppleIconName(alternateAppIcon.name, size, 1);
+    if (!(filename in generatedIcons)) {
+        const iconSizePx = size * scale;
+        await (0, create_resized_image_1.createResizedImage)(alternateAppIcon.icon, iconSizePx, false, alternateAppIcon.backgroundColor, (0, path_1.join)(iosNamedProjectRoot, imageSetPath, filename));
     }
+    imagesJson.push({
+        idiom: 'universal',
+        filename,
+        size: `${size}x${size}`,
+    });
     await (0, AssetContents_1.writeContentsJsonAsync)((0, path_1.join)(iosNamedProjectRoot, imageSetPath), {
         images: imagesJson,
     });

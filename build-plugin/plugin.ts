@@ -1,4 +1,4 @@
-import { ConfigPlugin } from "expo/config-plugins";
+import { ConfigPlugin } from "@expo/config-plugins";
 
 import { AlternateAppIcon } from "./alternateAppIcon";
 import withAlternateIconsAndroid from "./withAlternateIcons.android";

@@ -4,7 +4,7 @@ import {
   withAndroidManifest,
   AndroidConfig,
   withDangerousMod,
-} from "expo/config-plugins";
+} from "@expo/config-plugins";
 import fs from "fs-extra";
 import { join } from "path";
 import sharp from "sharp";

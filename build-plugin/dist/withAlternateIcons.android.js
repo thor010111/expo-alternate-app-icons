@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createAndroidAppIcon = void 0;
 const withAndroidIcons_1 = require("@expo/prebuild-config/build/plugins/icons/withAndroidIcons");
-const config_plugins_1 = require("expo/config-plugins");
+const config_plugins_1 = require("@expo/config-plugins");
 const fs_extra_1 = __importDefault(require("fs-extra"));
 const path_1 = require("path");
 const sharp_1 = __importDefault(require("sharp"));
