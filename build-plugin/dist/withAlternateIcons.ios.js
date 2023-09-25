@@ -62,6 +62,7 @@ const createIOSAppIcon = async (projectRoot, alternateAppIcon) => {
     }
     imagesJson.push({
         idiom: 'universal',
+        platform: 'ios',
         filename,
         size: `${size}x${size}`,
     });

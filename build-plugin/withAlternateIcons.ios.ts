@@ -69,6 +69,7 @@ export const createIOSAppIcon = async (
 
   imagesJson.push({
     idiom: 'universal',
+    platform: 'ios',
     filename,    
      size: `${size}x${size}`,
   });
