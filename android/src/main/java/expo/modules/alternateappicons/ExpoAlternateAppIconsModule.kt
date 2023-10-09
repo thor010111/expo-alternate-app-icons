@@ -1,14 +1,10 @@
 package expo.modules.alternateappicons
 
-import android.R
-import android.app.AlertDialog
 import android.content.ComponentName
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import androidx.core.content.res.ResourcesCompat
 import expo.modules.kotlin.Promise
 import expo.modules.kotlin.exception.CodedException
 import expo.modules.kotlin.modules.Module
