@@ -30,7 +30,7 @@
   "license": "MIT",
   "homepage": "https://github.com/johnny-bytes/expo-alternate-app-icons#readme",
   "dependencies": {
-    "@expo/prebuild-config": "^6.2.6",
+    "@expo/prebuild-config": "^6.8.1",
     "sharp": "^0.32.6"
   },
   "devDependencies": {
@@ -38,8 +38,8 @@
     "@types/react": "^18.0.25",
     "@types/react-native": "^0.70.6",
     "@types/sharp": "^0.31.1",
-    "expo-module-scripts": "^3.1.0",
-    "expo-modules-core": "^1.5.11",
+    "expo-module-scripts": "^3.4.2",
+    "expo-modules-core": "^1.11.13",
     "fs-extra": "^11.1.0"
   },
   "peerDependencies": {
