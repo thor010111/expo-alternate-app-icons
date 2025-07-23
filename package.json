@@ -26,20 +26,18 @@
   "bugs": {
     "url": "https://github.com/johnny-bytes/expo-alternate-app-icons/issues"
   },
-  "author": "Thorsten Kehren <thorsten.wesseler@johnnybytes.com> (https://github.com/johnny-bytes)",
+  "author": "Thorsten Wesseler <thorsten.wesseler@johnnybytes.com> (https://github.com/johnny-bytes)",
   "license": "MIT",
   "homepage": "https://github.com/johnny-bytes/expo-alternate-app-icons#readme",
   "dependencies": {
-    "@expo/prebuild-config": "^6.8.1",
-    "sharp": "^0.32.6"
+    "@expo/prebuild-config": "~9.0.11",
+    "sharp": "^0.34.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
-    "@types/react": "^18.0.25",
-    "@types/react-native": "^0.70.6",
-    "@types/sharp": "^0.31.1",
-    "expo-module-scripts": "^3.4.2",
-    "expo-modules-core": "^1.11.13",
+    "@types/sharp": "^0.32.0",
+    "expo-module-scripts": "^4.1.9",
+    "expo-modules-core": "^2.5.0",
     "fs-extra": "^11.1.0"
   },
   "peerDependencies": {

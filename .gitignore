@@ -62,3 +62,5 @@ android/keystores/debug.keystore
 
 example/ios
 example/android
+
+build-plugin/dist
