@@ -8,6 +8,7 @@
     "./"
   ],
   "exclude": [
+    "./dist",
     "**/__mocks__/*",
     "**/__tests__/*",
     "**/__stories__/*"
