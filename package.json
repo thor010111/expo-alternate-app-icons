@@ -31,14 +31,14 @@
   "homepage": "https://github.com/johnny-bytes/expo-alternate-app-icons#readme",
   "dependencies": {
     "@expo/prebuild-config": "~9.0.11",
+    "fs-extra": "^11.1.0",
     "sharp": "^0.34.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
     "@types/sharp": "^0.32.0",
     "expo-module-scripts": "^4.1.9",
-    "expo-modules-core": "^2.5.0",
-    "fs-extra": "^11.1.0"
+    "expo-modules-core": "^2.5.0"
   },
   "peerDependencies": {
     "expo": "*",
